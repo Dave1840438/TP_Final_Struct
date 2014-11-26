@@ -19,6 +19,9 @@ Sudoku::Sudoku(istream fichierDonnees, ostream out)
          try
          {
             if (fichierDonnees[j] == '*')
+               matrice_[i][j] = 0;
+            else
+               matrice_[i][j] = 
          }
          catch (...)
          {
