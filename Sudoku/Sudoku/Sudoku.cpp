@@ -64,11 +64,14 @@ void Sudoku::Afficher()
 
 bool Sudoku::Solutionner()
 {
+	Matrice<vector<int>> tampon;
+	Matrice<int> tampon2 = matrice_;
 	EnleverPossibilités();
+	tampon = matricePossibilités_;
 	int xPossible = -1;
 	int yPossible = -1;
 	int dimensionVecteur = DIMENSION_MATRICE + 1;
-	bool chiffrePlace = false;
+	bool matriceModifiee = false;
 
 	for (int i = 0; i < DIMENSION_MATRICE; i++)
 	{
@@ -86,37 +89,45 @@ bool Sudoku::Solutionner()
 				if (matricePossibilités_[i][j].size() == 1)
 				{
 					matrice_[i][j] = matricePossibilités_[i][j][0];
-					chiffrePlace = true;
+					matriceModifiee = true;
 				}
 			}
 		}
 	}
 
-
-
-	if (chiffrePlace)
-		Solutionner();
+	if (MatriceEstPleine())
+		return true;
+	else if (matriceModifiee)
+	{
+		if (Solutionner())
+			return true;
+		matricePossibilités_ = tampon;
+		matrice_ = tampon2;
+	}
 	else if (dimensionVecteur == DIMENSION_MATRICE + 1)
+	{
+		Afficher();
+		cout << endl << endl;
 		return false;
+
+	}
 	else if (dimensionVecteur != 1)
 	{
-		int nbDeCasATester = matricePossibilités_[xPossible][yPossible].size();
-		for (int i = 0; i < nbDeCasATester; i++)
+		
+		for (int i = 0; i < matricePossibilités_[xPossible][yPossible].size(); i++)
 		{
-			int nbInserer = matricePossibilités_[xPossible][yPossible][0];
-			matrice_[xPossible][yPossible] = matricePossibilités_[xPossible][yPossible][0];
-			matricePossibilités_[xPossible][yPossible].erase(matricePossibilités_[xPossible][yPossible].begin());
+			matrice_[xPossible][yPossible] = matricePossibilités_[xPossible][yPossible][i];
+			
+			
 			if (Solutionner())
 				return true;
-			Afficher();
-			cout << endl << endl;
-			RajouterPossibilités(nbInserer, xPossible, yPossible);
-			matrice_[xPossible][yPossible] = 0;
+			matricePossibilités_ = tampon;
+			matrice_ = tampon2;
 		}
 	}
-	else if (MatriceEstPleine())
-		return true;
 
+	matrice_ = tampon2;
+	matricePossibilités_ = tampon;
 	return false;
 }
 
@@ -133,8 +144,8 @@ void Sudoku::EnleverPossibilités()
 					vector<int>::iterator it = find(matricePossibilités_[i][j].begin(), matricePossibilités_[i][j].end(), k);
 					if (it != matricePossibilités_[i][j].end())
 					{
-						if (!(!EstDansLaLigne(k, j) && !EstDansLaColonne(k, i)
-							&& !EstDansQuadrant(k, i, j)))
+						if (EstDansLaLigne(k, j) || EstDansLaColonne(k, i)
+							|| EstDansQuadrant(k, i, j))
 							matricePossibilités_[i][j].erase(it);
 					}
 				}
@@ -142,6 +153,9 @@ void Sudoku::EnleverPossibilités()
 		}
 	}
 }
+
+
+
 
 void Sudoku::RajouterPossibilités(int nombreEnleve, int x, int y)
 {
@@ -199,7 +213,9 @@ bool Sudoku::EstDansQuadrant(int nombre, int x, int y)
 	{
 		for (int j = 0; j < DIMENSION_QUADRANT; j++)
 		{
-			if (matrice_[(x / DIMENSION_QUADRANT) * DIMENSION_QUADRANT + i][(y / DIMENSION_QUADRANT) * DIMENSION_QUADRANT + j] == nombre)
+			int s = (x / DIMENSION_QUADRANT) * DIMENSION_QUADRANT + i;
+			int t = (y / DIMENSION_QUADRANT) * DIMENSION_QUADRANT + j;
+			if (matrice_[s][t] == nombre)
 				resultat = true;
 		}
 	}
@@ -223,4 +239,15 @@ bool Sudoku::MatriceEstPleine()
 	return resultat;
 }
 
+bool Sudoku::Verifier()
+{
+	bool resultat = true;
+
+	return resultat;
+
+
+
+
+
+}
 
