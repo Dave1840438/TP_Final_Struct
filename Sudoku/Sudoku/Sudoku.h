@@ -1,3 +1,9 @@
+//Sudoku.h
+//David Sylvestre et Patrick Lemay
+//1er Décembre 2014
+//Ce fichier contient la déclaration de la classe Sudoku
+
+#pragma once
 #include "Matrice.h"
 #include <iostream>
 
@@ -11,9 +17,6 @@ class Sudoku
    bool EstDansQuadrant(int nombre, int x, int y);
    bool EstDansLaColonne(int nombre, int y);
    bool EstDansLaLigne(int nombre, int x);
-   void RajouterPossibilités(int nombreEnleve, int x, int y);
-   bool Verifier(); 
-   vector<int>::iterator TrouverNombre(int x, int y);
 
 public:
    Sudoku(ifstream& fichierDonnees, ostream& out);
