@@ -9,8 +9,8 @@ class Sudoku
    bool MatriceEstPleine();
    void EnleverPossibilités();
    bool EstDansQuadrant(int nombre, int x, int y);
-   bool EstDansLaColonne(int nombre, int x);
-   bool EstDansLaLigne(int nombre, int y);
+   bool EstDansLaColonne(int nombre, int y);
+   bool EstDansLaLigne(int nombre, int x);
    void RajouterPossibilités(int nombreEnleve, int x, int y);
    bool Verifier(); 
    vector<int>::iterator TrouverNombre(int x, int y);

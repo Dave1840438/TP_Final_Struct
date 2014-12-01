@@ -106,8 +106,7 @@ bool Sudoku::Solutionner()
 	}
 	else if (dimensionVecteur == DIMENSION_MATRICE + 1)
 	{
-		Afficher();
-		cout << endl << endl;
+	
 		return false;
 
 	}
@@ -126,8 +125,6 @@ bool Sudoku::Solutionner()
 		}
 	}
 
-	matrice_ = tampon2;
-	matricePossibilités_ = tampon;
 	return false;
 }
 
@@ -178,7 +175,7 @@ void Sudoku::RajouterPossibilités(int nombreEnleve, int x, int y)
 
 }
 
-bool Sudoku::EstDansLaColonne(int nombre, int x)
+bool Sudoku::EstDansLaLigne(int nombre, int x)
 {
 	bool resultat = false;
 
@@ -191,7 +188,7 @@ bool Sudoku::EstDansLaColonne(int nombre, int x)
 	return resultat;
 }
 
-bool Sudoku::EstDansLaLigne(int nombre, int y)
+bool Sudoku::EstDansLaColonne(int nombre, int y)
 {
 	bool resultat = false;
 

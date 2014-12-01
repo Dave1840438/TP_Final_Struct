@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	ifstream fichier("Test2.txt", ios::in);
+	ifstream fichier("Test.txt", ios::in);
 	Chrono chrono;
 
 	if (fichier)
