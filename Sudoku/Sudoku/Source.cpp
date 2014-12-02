@@ -14,7 +14,7 @@ using namespace std;
 //puis affiche le temps d'éxécution ainsi que la solution
 int main()
 {
-	ifstream fichier("Test.txt", ios::in);
+	ifstream fichier("TestPlusDur.txt", ios::in);
 	Chrono chrono;
 
 	if (fichier)
@@ -28,7 +28,6 @@ int main()
 		chrono.Stop();
 		cout << "Temps requis: " << chrono.Read() << endl;
 		sudoku.Afficher();
-		
 	}
 	else
 	{
