@@ -18,7 +18,6 @@ class Sudoku
    bool EstDansQuadrant(int nombre, int x, int y);
    bool EstDansLaColonne(int nombre, int y);
    bool EstDansLaLigne(int nombre, int x);
-   vector<int>* TrouverPlusPetitVector();
    bool CommencerBacktracking(Matrice<vector<int>> Possibilitées);
 
 public:
