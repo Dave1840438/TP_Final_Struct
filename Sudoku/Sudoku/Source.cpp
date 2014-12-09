@@ -7,7 +7,6 @@
 #include "Chrono.h"
 #include <iostream>
 #include <fstream>
-#include <string>
 
 using namespace std;
 
@@ -15,28 +14,23 @@ using namespace std;
 //puis affiche le temps d'éxécution ainsi que la solution
 int main()
 {
-   string nomFichier;
-   cout << "Quel est le nom du fichier a lire?  ";
-   cin >> nomFichier;
-
-	ifstream fichier(nomFichier, ios::in);
+	ifstream fichier("TestPierre.txt", ios::in);
 	Chrono chrono;
 
 	if (fichier)
 	{
-		cout << "Lecture reussie" << endl;
+		cout << "good" << endl;
 		Sudoku sudoku(fichier, cout);
 		fichier.close();
 
 		chrono.Start();
 		sudoku.Solutionner();
 		chrono.Stop();
-
 		cout << "Temps requis: " << chrono.Read() << endl;
 		sudoku.Afficher();
 	}
 	else
 	{
-		cout << "Erreur de lecture" << endl;
+		cout << "...." << endl;
 	}
 }
