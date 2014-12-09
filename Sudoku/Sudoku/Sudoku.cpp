@@ -204,6 +204,7 @@ bool Sudoku::Solutionner()
 
 void Sudoku::EnleverPossibilités()
 {
+
 	for (int i = 0; i < DIMENSION_MATRICE; i++)
 	{
 		for (int j = 0; j < DIMENSION_MATRICE; j++)
@@ -216,7 +217,7 @@ void Sudoku::EnleverPossibilités()
 						|| EstDansQuadrant(*it, i, j))
 					{
 						matricePossibilités_[i][j].erase(it);
-						it--;
+                  it--;
 					}
 				}
 			}
@@ -264,8 +265,6 @@ bool Sudoku::EstDansQuadrant(int nombre, int x, int y)
 
 bool Sudoku::MatriceEstPleine()
 {
-	bool resultat = true;
-
 	for (int i = 0; i < DIMENSION_MATRICE; i++)
 	{
 		for (int j = 0; j < DIMENSION_MATRICE; j++)
