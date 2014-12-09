@@ -65,6 +65,34 @@ void Sudoku::Afficher()
 	cout << string(nbTirets, '-') << endl;
 }
 
+vector<int>* Sudoku::TrouverPlusPetitVector()
+{
+	int xPossible = -1;
+	int yPossible = -1;
+	int dimensionVecteur = DIMENSION_MATRICE + 1;
+
+	for (int i = 0; i < DIMENSION_MATRICE; i++)
+	{
+		for (int j = 0; j < DIMENSION_MATRICE; j++)
+		{
+			if (matrice_[i][j] == 0)
+			{
+				if (matricePossibilités_[i][j].size() < dimensionVecteur && matricePossibilités_[i][j].size() != 0)
+				{
+					xPossible = i;
+					yPossible = j;
+					dimensionVecteur = matricePossibilités_[i][j].size();
+				}
+			}
+		}
+	}
+
+	if (xPossible == -1)
+		return 0;
+	else
+		return &matricePossibilités_[xPossible][yPossible];
+
+}
 
 
 bool Sudoku::CommencerBacktracking(Matrice<vector<int>> Possibilitées)
@@ -88,7 +116,7 @@ bool Sudoku::CommencerBacktracking(Matrice<vector<int>> Possibilitées)
 			}
 		}
 	}
-
+	
 	if (dimensionVecteur != DIMENSION_MATRICE + 1)
 	{
 		for (vector<int>::iterator it = matricePossibilités_[xPossible][yPossible].begin(); it != matricePossibilités_[xPossible][yPossible].end(); it++)
@@ -110,6 +138,9 @@ bool Sudoku::Solutionner()
 	Matrice<vector<int>> tampon;
 	EnleverPossibilités();
 	tampon = matricePossibilités_;
+	int xPossible = -1;
+	int yPossible = -1;
+	int dimensionVecteur = DIMENSION_MATRICE + 1;
 	bool matriceModifiee = false;
 
 	for (int i = 0; i < DIMENSION_MATRICE && !matriceModifiee; i++)
@@ -118,6 +149,13 @@ bool Sudoku::Solutionner()
 		{
 			if (matrice_[i][j] == 0)
 			{
+				/*if (matricePossibilités_[i][j].size() < dimensionVecteur && matricePossibilités_[i][j].size() != 0)
+				{
+					xPossible = i;
+					yPossible = j;
+					dimensionVecteur = matricePossibilités_[i][j].size();
+				}*/
+
 				if (matricePossibilités_[i][j].size() == 1)
 				{
 					EnleverPossibilités();
@@ -142,6 +180,25 @@ bool Sudoku::Solutionner()
 		if (CommencerBacktracking(tampon))
 			return true;
 	}
+	/*else if (dimensionVecteur == DIMENSION_MATRICE + 1)
+	{
+		return false;
+	}
+	else if (dimensionVecteur != 1)
+	{
+		vector<int>* vectorEssais = TrouverPlusPetitVector();
+		for (vector<int>::iterator it = vectorEssais->begin(); it != vectorEssais->end() ; it++)
+		{
+			matrice_[xPossible][yPossible] = *it;
+
+			if (Solutionner())
+				return true;
+
+			matricePossibilités_ = tampon;
+		}
+		matrice_[xPossible][yPossible] = 0;
+	}*/
+
 	return false;
 }
 
