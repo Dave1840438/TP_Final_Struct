@@ -6,6 +6,7 @@
 #pragma once
 #include "Matrice.h"
 #include <iostream>
+#include <vector>
 
 class Sudoku
 {
@@ -17,6 +18,8 @@ class Sudoku
    bool EstDansQuadrant(int nombre, int x, int y);
    bool EstDansLaColonne(int nombre, int y);
    bool EstDansLaLigne(int nombre, int x);
+   vector<int>* TrouverPlusPetitVector();
+   bool CommencerBacktracking(Matrice<vector<int>> Possibilitées);
 
 public:
    Sudoku(ifstream& fichierDonnees, ostream& out);
