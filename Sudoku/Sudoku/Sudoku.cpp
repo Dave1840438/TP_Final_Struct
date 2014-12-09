@@ -94,6 +94,45 @@ vector<int>* Sudoku::TrouverPlusPetitVector()
 
 }
 
+
+bool Sudoku::CommencerBacktracking(Matrice<vector<int>> Possibilitées)
+{
+	int xPossible = -1;
+	int yPossible = -1;
+	int dimensionVecteur = DIMENSION_MATRICE + 1;
+
+	for (int i = 0; i < DIMENSION_MATRICE; i++)
+	{
+		for (int j = 0; j < DIMENSION_MATRICE; j++)
+		{
+			if (matrice_[i][j] == 0)
+			{
+				if (matricePossibilités_[i][j].size() < dimensionVecteur && matricePossibilités_[i][j].size() != 0)
+				{
+					xPossible = i;
+					yPossible = j;
+					dimensionVecteur = matricePossibilités_[i][j].size();
+				}
+			}
+		}
+	}
+	
+	if (dimensionVecteur != DIMENSION_MATRICE + 1)
+	{
+		for (vector<int>::iterator it = matricePossibilités_[xPossible][yPossible].begin(); it != matricePossibilités_[xPossible][yPossible].end(); it++)
+		{
+			matrice_[xPossible][yPossible] = *it;
+
+			if (Solutionner())
+				return true;
+
+			matricePossibilités_ = Possibilitées;
+		}
+		matrice_[xPossible][yPossible] = 0;
+	}
+	return false;
+}
+
 bool Sudoku::Solutionner()
 {
 	Matrice<vector<int>> tampon;
@@ -110,12 +149,12 @@ bool Sudoku::Solutionner()
 		{
 			if (matrice_[i][j] == 0)
 			{
-				if (matricePossibilités_[i][j].size() < dimensionVecteur && matricePossibilités_[i][j].size() != 0)
+				/*if (matricePossibilités_[i][j].size() < dimensionVecteur && matricePossibilités_[i][j].size() != 0)
 				{
 					xPossible = i;
 					yPossible = j;
 					dimensionVecteur = matricePossibilités_[i][j].size();
-				}
+				}*/
 
 				if (matricePossibilités_[i][j].size() == 1)
 				{
@@ -136,7 +175,12 @@ bool Sudoku::Solutionner()
 
 	if (MatriceEstPleine())
 		return true;
-	else if (dimensionVecteur == DIMENSION_MATRICE + 1)
+	else if (!matriceModifiee)
+	{
+		if (CommencerBacktracking(tampon))
+			return true;
+	}
+	/*else if (dimensionVecteur == DIMENSION_MATRICE + 1)
 	{
 		return false;
 	}
@@ -153,7 +197,7 @@ bool Sudoku::Solutionner()
 			matricePossibilités_ = tampon;
 		}
 		matrice_[xPossible][yPossible] = 0;
-	}
+	}*/
 
 	return false;
 }

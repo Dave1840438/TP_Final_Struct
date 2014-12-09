@@ -14,7 +14,7 @@ using namespace std;
 //puis affiche le temps d'éxécution ainsi que la solution
 int main()
 {
-	ifstream fichier("TestPlusDur.txt", ios::in);
+	ifstream fichier("TestPierre.txt", ios::in);
 	Chrono chrono;
 
 	if (fichier)
