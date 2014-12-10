@@ -7,6 +7,7 @@
 #include "Chrono.h"
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -14,7 +15,12 @@ using namespace std;
 //puis affiche le temps d'éxécution ainsi que la solution
 int main()
 {
-	ifstream fichier("TestPierre.txt", ios::in);
+   string nomFichier = "test.txt";
+   cout << "Quel est le nom du fichier?  ";
+   getline(cin, nomFichier);
+   cout << endl;
+
+	ifstream fichier(nomFichier);
 	Chrono chrono;
 
 	if (fichier)
@@ -31,6 +37,6 @@ int main()
 	}
 	else
 	{
-		cout << "...." << endl;
+		cout << "Erreur de lecture du fichier" << endl;
 	}
 }

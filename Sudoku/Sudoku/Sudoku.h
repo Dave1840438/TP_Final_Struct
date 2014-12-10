@@ -10,20 +10,42 @@
 
 class Sudoku
 {
+   //Constantes statiques
+   const static int DIMENSION_MATRICE;
+   const static int DIMENSION_QUADRANT;
+
+   //Membres privés
    Matrice<int> matrice_;
    Matrice <vector<int>> matricePossibilités_;
    ostream& out_;
+
+   //La fonction dit si la matrice est pleine
    bool MatriceEstPleine();
+
+   //Enlever les possibilité dans les vectors des cases
+   //correspondantes
    void EnleverPossibilités();
+
+   //La fonction dit si le chiffre et dans le quadrant
    bool EstDansQuadrant(int nombre, int x, int y);
+
+   //La fonction dit si le chiffre et dans la colonne
    bool EstDansLaColonne(int nombre, int y);
+
+   //La fonction dit si le chiffre et dans la ligne
    bool EstDansLaLigne(int nombre, int x);
-   vector<int>* TrouverPlusPetitVector();
+
+   //Si on est sur de la position d'aucun chiffre,
+   //on commence l'essais-erreur
    bool CommencerBacktracking(Matrice<vector<int>> Possibilitées);
 
 public:
+   //Constructeur paramétrique
    Sudoku(ifstream& fichierDonnees, ostream& out);
-   void Afficher();
-   bool Solutionner();
 
+   //Affiche la grille avec la quadrants
+   void Afficher();
+
+   //Rempli la grille avec les bons chiffres
+   bool Solutionner();
 };
